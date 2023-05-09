@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import './App.css'
 
-function App() {
+function SimpleForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formData);
+    setFormData({
+      name: '',
+      email: '',
+      password: ''
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
+        </label>
+        <br />
+        <label>
+          Email:
+          <input type="email" name="email" value={formData.email} onChange={handleInputChange} />
+        </label>
+        <br />
+        <label>
+          Password:
+          <input type="password" name="password" value={formData.password} onChange={handleInputChange} />
+        </label>
+        <br />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
 
-export default App;
+export default SimpleForm;
